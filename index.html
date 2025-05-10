@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schipperke Coin Web App 🐾</title>
+    <title>Schipperke Shiller App 🐾</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -22,12 +22,15 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
             position: relative;
         }
-        .title {
-            font-size: 2.5em;
-            font-weight: 700;
-            color: #ffffff;
-            text-align: center;
+        .banner {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 15px;
             margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
         .post-text {
             background-color: #222222;
@@ -85,7 +88,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="title">Schipperke Coin Web App 🐾</div>
+        <img src="logo.png" alt="Schipperke Shiller App" class="banner">
         <div id="post-text" class="post-text">Loading...</div>
         <button class="button" onclick="generateReply()">Generate Reply</button>
         <textarea id="reply-box" class="textarea" rows="4" readonly></textarea>
