@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schipperke Coin Web App 🐾</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #111111;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            position: relative;
+        }
+        .title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .post-text {
+            background-color: #222222;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+        .button {
+            background-color: #333333;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 15px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        .button:hover {
+            background-color: #555555;
+        }
+        .textarea {
+            width: 100%;
+            background-color: #222222;
+            color: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #555555;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 1em;
+            resize: none;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .copied-message {
+            position: fixed;
+            background-color: #4CAF50;
+            color: #ffffff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9em;
+            display: none;
+            z-index: 1000;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Schipperke Coin Web App 🐾</div>
+        <div id="post-text" class="post-text">Loading...</div>
+        <button class="button" onclick="generateReply()">Generate Reply</button>
+        <textarea id="reply-box" class="textarea" rows="4" readonly></textarea>
+        <button class="button" onclick="copyReply(event)">📋 Copy to Clipboard</button>
+        <button class="button" onclick="replyToPost()">Reply to X Post</button>
+        <div class="nav-buttons">
+            <button class="button" onclick="prevPost()">⬆️ Up</button>
+            <button class="button" onclick="nextPost()">⬇️ Down</button>
+        </div>
+        <div id="copied-message" class="copied-message">Copied!</div>
+    </div>
+    <script>
+        let posts = [];
+        let currentIndex = 0;
+
+        async function loadPosts() {
+            try {
+                const response = await fetch('posts.json');
+                posts = (await response.json()).posts;
+                updatePost();
+            } catch (error) {
+                console.error("Error loading posts:", error);
+                document.getElementById('post-text').textContent = "Error loading posts.";
+            }
+        }
+
+        function updatePost() {
+            const post = posts[currentIndex];
+            document.getElementById('post-text').textContent = post.text;
+            document.getElementById('reply-box').value = "";
+        }
+
+        function generateReply() {
+            const post = posts[currentIndex];
+            const randomReply = post.replies[Math.floor(Math.random() * post.replies.length)];
+            document.getElementById('reply-box').value = randomReply;
+        }
+
+        function copyReply(event) {
+            const replyBox = document.getElementById('reply-box');
+            navigator.clipboard.writeText(replyBox.value).then(() => {
+                const message = document.getElementById('copied-message');
+                message.style.top = `${event.clientY}px`;
+                message.style.left = `${event.clientX}px`;
+                message.style.display = 'block';
+                message.style.opacity = '1';
+                setTimeout(() => message.style.opacity = '0', 1000);
+                setTimeout(() => message.style.display = 'none', 1300);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        }
+
+        function replyToPost() {
+            const post = posts[currentIndex];
+            window.open(post.link, '_blank');
+        }
+
+        function prevPost() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updatePost();
+            }
+        }
+
+        function nextPost() {
+            if (currentIndex < posts.length - 1) {
+                currentIndex++;
+                updatePost();
+            }
+        }
+
+        loadPosts();
+    </script>
+</body>
+</html>
