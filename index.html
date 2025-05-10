@@ -16,10 +16,10 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: #111111;
+            background-color: #000000;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            box-shadow: none;
             position: relative;
         }
         .banner {
@@ -38,43 +38,51 @@
             border-radius: 10px;
             margin-bottom: 20px;
             font-size: 1.2em;
+            border: 1px solid #333333;
+            box-sizing: border-box;
         }
         .button {
-            background-color: #333333;
+            background-color: #1a1a1a;
             color: #ffffff;
-            border: none;
-            border-radius: 10px;
-            padding: 15px 20px;
+            border: 1px solid #555555;
+            border-radius: 8px;
+            padding: 12px 20px;
             font-weight: bold;
             cursor: pointer;
             margin-bottom: 15px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
             display: block;
             width: 100%;
             text-align: center;
         }
         .button:hover {
-            background-color: #555555;
+            background-color: #333333;
+            color: #00FFA3;
+            border: 1px solid #00FFA3;
         }
         .textarea {
             width: 100%;
-            background-color: #222222;
+            background-color: #111111;
             color: #ffffff;
             border-radius: 10px;
-            border: 1px solid #555555;
+            border: 1px solid #333333;
             padding: 15px;
             margin-bottom: 15px;
             font-size: 1em;
             resize: none;
+            box-sizing: border-box;
         }
         .nav-buttons {
             display: flex;
             justify-content: space-between;
         }
+        .nav-buttons .button {
+            width: 48%;
+        }
         .copied-message {
             position: fixed;
-            background-color: #4CAF50;
-            color: #ffffff;
+            background-color: #00FFA3;
+            color: #000000;
             padding: 8px 12px;
             border-radius: 5px;
             font-weight: bold;
@@ -91,12 +99,12 @@
         <img src="logo.png" alt="Schipperke Shiller App" class="banner">
         <div id="post-text" class="post-text">Loading...</div>
         <button class="button" onclick="generateReply()">Generate Reply</button>
-        <textarea id="reply-box" class="textarea" rows="4" readonly></textarea>
+        <textarea id="reply-box" class="textarea" rows="3" readonly></textarea>
         <button class="button" onclick="copyReply(event)">📋 Copy to Clipboard</button>
-        <button class="button" onclick="replyToPost()">Reply to X Post</button>
+        <button class="button" onclick="replyToPost()">🚀 Shill on X!</button>
         <div class="nav-buttons">
-            <button class="button" onclick="prevPost()">⬆️ Up</button>
-            <button class="button" onclick="nextPost()">⬇️ Down</button>
+            <button class="button" onclick="prevPost()">⬅️ Previous</button>
+            <button class="button" onclick="nextPost()">Next ➡️</button>
         </div>
         <div id="copied-message" class="copied-message">Copied!</div>
     </div>
